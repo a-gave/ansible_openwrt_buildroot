@@ -1,7 +1,7 @@
 ---
 - name: 5 configure - 1 - clean
   include_tasks: "{{ openwrt_task_5_1_configure_clean }}"
-  when: not skip_configure_clean
+  when: force_openwrt_buildroot_configure_clean
   tags:
     - configure_clean
 

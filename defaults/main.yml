@@ -23,12 +23,13 @@ skip_clone_openwrt: false
 skip_add_feeds: false
 skip_update_install_feeds: false
 skip_configure_images: false
-skip_configure_clean: false
 skip_configure_init: false
 skip_configure_custom: false
 skip_build_openwrt: false
 skip_build_openwrt_target_clean: false
 skip_post_build: false
+
+force_openwrt_buildroot_configure_clean: false
 
 # Task overwrite.
 # Overwrite any of this task, binding to your customized tasks 

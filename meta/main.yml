@@ -1,0 +1,22 @@
+galaxy_info:
+  author: a-gave
+  description: "Ansible role to build OpenWrt firmware images with OpenWrt Buildroot"
+  company: libremesh
+  license: license (AGPL-3.0-or-later)
+  issue_tracker_url: https://gitlab.com/a-gave/ansible_openwrt_buildroot/-/issues
+
+  min_ansible_version: 2.1
+
+  platforms:
+  - name: Debian
+    versions:
+    - bullseye
+
+  galaxy_tags: 
+    - openwrt
+    - buildroot
+    - firmware
+    - generator
+
+dependencies: []
+

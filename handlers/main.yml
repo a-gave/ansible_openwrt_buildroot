@@ -1,0 +1,6 @@
+---
+# handlers file for libremesh.openwrt_buildroot
+- name: Update and install feeds
+  shell: ./scripts/feeds update -a; ./scripts/feeds install -a
+  args:
+    chdir: "{{ openwrt_build_dir }}"

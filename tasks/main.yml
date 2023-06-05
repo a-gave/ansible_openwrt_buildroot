@@ -1,0 +1,50 @@
+---
+# tasks file for libremesh.openwrt_buildroot
+
+- name: 0/7 prepare - Create system user and group
+  include_tasks: "{{ openwrt_task_0_prepare }}"
+  when: not skip_prepare and not (openwrt_build_user == ansible_user)
+  tags:
+    - prepare
+
+- name: 1/7 requirements - Install openwrt-imagebuilder requirements
+  include_tasks: "{{ openwrt_task_1_openwrt_requirements }}"
+  when: not skip_install_openwrt_requirements
+  tags:
+    - openwrt_requirements
+
+- name: 2/7 install - Install OpenWrt build system
+  include_tasks: "{{ openwrt_task_2_install_openwrt }}"
+  when: not skip_clone_openwrt
+  tags:
+    - install_openwrt
+
+- name: 3/7 install - Add feeds
+  include_tasks: "{{ openwrt_task_3_add_feeds }}"
+  when: not skip_add_feeds
+  tags:
+    - add_feeds
+
+- name: 4/7 install - Update and install feeds
+  include_tasks: 4_update_install_feeds.yml
+  when: not skip_update_install_feeds
+  tags:
+    - update_install_feeds
+
+- name: 5/7 configure - Configure images
+  include_tasks: "{{ openwrt_task_5_configure_images }}"
+  when: not skip_configure_images
+  tags:
+    - configure_images
+
+- name: 6/7 build - Build OpenWrt
+  include_tasks: "{{ openwrt_task_6_build_openwrt }}"
+  when: not skip_build_openwrt
+  tags:
+    - build_openwrt
+
+- name: 7/7 post build
+  include_tasks: "{{ openwrt_task_7_post_build }}"
+  when: not skip_post_build
+  tags:
+    - post_build

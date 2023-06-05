@@ -1,0 +1,59 @@
+---
+# defaults file for libremesh.openwrt_buildroot
+
+# Environment
+openwrt_build_mode: 'stable'
+openwrt_build_user: "{{ ansible_user | default('user_id') }}"
+openwrt_dir: "{{ playbook_dir }}/openwrt_build/{{openwrt_build_mode}}/"
+
+# Openwrt
+version_dist: OpenWrt
+openwrt_version: "{{openwrt_release['stable']}}"
+openwrt_version_tag: "v{{openwrt_version}}"
+openwrt_build_dirname: "openwrt-{{openwrt_version}}"
+openwrt_build_dir: "{{openwrt_dir}}/{{openwrt_build_dirname}}"
+
+# Build
+openwrt_extra_image_name: ""
+
+# Skip tasks.
+skip_prepare: false
+skip_install_openwrt_requirements: false
+skip_clone_openwrt: false
+skip_add_feeds: false
+skip_update_install_feeds: false
+skip_configure_images: false
+skip_configure_clean: false
+skip_configure_init: false
+skip_configure_custom: false
+skip_build_openwrt: false
+skip_build_openwrt_target_clean: false
+skip_post_build: false
+
+# Task overwrite.
+# Overwrite any of this task, binding to your customized tasks 
+openwrt_task_0_prepare: 0_prepare.yml
+openwrt_task_1_openwrt_requirements: 1_openwrt_requirements.yml
+openwrt_task_2_install_openwrt: 2_install_openwrt.yml
+openwrt_task_3_add_feeds: 3_add_feeds.yml
+openwrt_task_4_update_install_feeds: 4_update_install_feeds.yml
+openwrt_task_5_configure_images: 5_configure_images.yml
+openwrt_task_5_1_configure_clean: 5.1_configure_clean.yml
+openwrt_task_5_2_configure_target: 5.2_configure_target.yml
+openwrt_task_5_3_configure_custom: 5.3_configure_custom.yml
+openwrt_task_6_build_openwrt: 6_build_openwrt.yml
+openwrt_task_7_post_build: 7_post_build.yml
+
+
+# Openwrt Config
+openwrt_default_target_config_file: default_target_config.j2
+openwrt_default_config_file: default_config.j2
+
+openwrt_config_image: |
+  CONFIG_IMAGEOPT=y
+  CONFIG_VERSIONOPT=y
+  CONFIG_VERSION_DIST="{{version_dist}}"
+  CONFIG_VERSION_NUMBER="{{ openwrt_version }}"
+  CONFIG_JSON_OVERVIEW_IMAGE_INFO=y
+  CONFIG_KERNEL_BUILD_DOMAIN="buildhost"
+  CONFIG_KERNEL_BUILD_USER="builder"

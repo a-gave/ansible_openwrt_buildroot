@@ -1,0 +1,20 @@
+---
+- name: Ensure configs dir exist
+  file:
+    path: "{{ openwrt_build_dir }}/configs"
+    state: directory
+
+- name: configure - Clean .config
+  shell: "cd {{ openwrt_build_dir }}; cat /dev/null > .config"
+
+- name: configure - Append target .config
+  blockinfile:
+    path: "{{ openwrt_build_dir }}/.config"
+    block: "{{ lookup('ansible.builtin.template', openwrt_default_target_config_file) }}"
+
+- name: configure - Expand to full config
+  shell: "cd {{ openwrt_build_dir }}; make defconfig"
+
+- name: configure - Copy default config to to configs/{{ version_dist }}_default_config_{{openwrt_target}}_{{ openwrt_subtarget}}
+  shell: 
+    cmd: "cd {{ openwrt_build_dir }}; grep CONFIG_DEFAULT .config > configs/{{ version_dist }}_default_config_{{openwrt_target}}_{{ openwrt_subtarget}}"

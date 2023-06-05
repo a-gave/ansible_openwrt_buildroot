@@ -1,0 +1,21 @@
+---
+# - name: configure - clean - stagin_dir/toolchain*
+#   shell:
+#     cmd:
+#       # make config-clean;
+#       rm -rf build_dir/toolchain*;
+#       rm -rf staging_dir/toolchain*;
+#   args:
+#     chdir: "{{ openwrt_build_dir }}"
+
+# - name: configure - clean - Clean info files
+#   shell:
+#     cmd: "rm -rf {{ openwrt_build_dir }}/tmp/info/.files-packageinfo.mk;
+#           rm -rf {{ openwrt_build_dir }}/tmp/info/.files-targetinfo.mk;"
+#   args:
+#     chdir: "{{ openwrt_build_dir }}"
+
+# - name: configure - clean - Remove .config
+#   file:
+#     path: "{{ openwrt_build_dir }}/.config"
+#     state: absent

@@ -1,0 +1,35 @@
+
+CONFIG_DEVEL=y
+CONFIG_ALL_KMODS=y
+CONFIG_ALL_NONSHARED=y
+
+
+### Target 
+{% if openwrt_target == "x86" %}
+
+CONFIG_TARGET_ROOTFS_INITRAMFS=y
+CONFIG_TARGET_INITRAMFS_COMPRESSION_XZ=y
+CONFIG_TARGET_ROOTFS_TARGZ=y
+CONFIG_TARGET_{{ openwrt_target }}=y
+CONFIG_TARGET_{{ openwrt_target }}_{{ openwrt_subtarget }}=y
+
+{% else %}
+
+CONFIG_TARGET_{{ openwrt_target }}=y
+CONFIG_TARGET_{{ openwrt_target }}_{{ openwrt_subtarget }}=y
+CONFIG_TARGET_MULTI_PROFILE=y
+CONFIG_TARGET_PER_DEVICE_ROOTFS=y
+
+{% if openwrt_devices == "all" %}
+CONFIG_TARGET_ALL_PROFILES=y
+{% else %}
+{% for device in openwrt_devices %}
+CONFIG_TARGET_DEVICE_{{ openwrt_target }}_{{ openwrt_subtarget }}_DEVICE_{{ device.name }}=y
+{% endfor %}
+{% endif %}
+
+{% endif %}
+
+
+### Image
+{{ openwrt_config_image }}

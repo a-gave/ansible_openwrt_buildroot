@@ -1,6 +1,7 @@
 ---
 - name: "0/7 prepare - 1 - Create system group {{openwrt_build_user}}"
   become: yes
+  become_user: root
   group:
     name: "{{openwrt_build_user}}"
     system: true
@@ -8,6 +9,7 @@
 
 - name: "0/7 prepare - 2 - Create system user {{openwrt_build_user}}"
   become: yes
+  become_user: root
   user:
     name: "{{openwrt_build_user}}"
     system: true

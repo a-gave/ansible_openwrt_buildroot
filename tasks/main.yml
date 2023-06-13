@@ -3,13 +3,13 @@
 
 - name: 0/7 prepare - Create system user and group
   include_tasks: "{{ openwrt_task_0_prepare }}"
-  when: not skip_prepare and not (openwrt_build_user == ansible_user)
+  when: not skip_prepare
   tags:
     - prepare
 
-- name: 1/7 requirements - Install openwrt-imagebuilder requirements
+- name: 1/7 requirements - Install openwrt_buildroot requirements
   include_tasks: "{{ openwrt_task_1_openwrt_requirements }}"
-  when: not skip_install_openwrt_requirements
+  when: not skip_install_openwrt_buildroot_requirements
   tags:
     - openwrt_requirements
 

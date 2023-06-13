@@ -1,5 +1,5 @@
 ---
-# vars file for libremesh.openwrt-imagebuilder
+# vars file for libremesh.openwrt_buildroot
 openwrt_repository: https://git.openwrt.org/openwrt/openwrt.git
 
 openwrt_release:
@@ -7,7 +7,5 @@ openwrt_release:
   old_stable: 21.02.7 # Mon, 1 May 2023
 
 openwrt_release_archive:
-#  22.03.3 # 9. January 2023
-#  21.02.5 # 17. October 2022
   '19': 19.07.10
   '18': 18.06

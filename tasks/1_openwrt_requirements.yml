@@ -1,6 +1,7 @@
 ---
-- name: 1/7 install - 1 - Install openwrt-imagebuilder requirements
+- name: 1/7 install - 1 - Install openwrt_buildroot requirements
   become: yes
+  become_user: root
   ansible.builtin.apt:
     update_cache: yes
     state: present

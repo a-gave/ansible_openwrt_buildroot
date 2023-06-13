@@ -1,31 +1,21 @@
 ---
-- name: install - Ensure openwrt_dir exists
+- name: 2/7 install - 1 - Ensure openwrt_dir exists
   file:
     path: "{{ openwrt_dir }}"
     state: directory
 
-- name: install - Check if openwrt_build_dir is present
-  stat:
-    path: "{{ openwrt_build_dir }}"
-  register: openwrt_build_dir_initialized
-
-- name: install - Clone openwrt
+- name: 2/7 install - 3 - Clone openwrt
   git:
     repo: "{{ openwrt_repository }}"
-    dest: "{{ openwrt_build_dir }}"
+    dest: "{{ openwrt_buildroot_dir }}"
     single_branch: yes
     version: "{{ openwrt_version_tag }}"
-  when: not openwrt_build_dir_initialized.stat.exists
+    update: no
 
-- name: install - Check if feeds.conf is present
-  stat:
-    path: "{{ openwrt_build_dir }}/feeds.conf"
-  register: feeds_conf
-
-- name: install - cp feeds.conf.default feeds.conf
-  shell:
-    cmd: cp feeds.conf.default feeds.conf
-  args:
-    chdir: "{{ openwrt_build_dir }}"
-  when: not feeds_conf.stat.exists
+- name: 2/7 install - 4 - cp feeds.conf.default feeds.conf
+  ansible.builtin.copy:
+    src: "{{ openwrt_buildroot_dir }}/feeds.conf.default"
+    dest: "{{ openwrt_buildroot_dir }}/feeds.conf"
+    force: no
+    remote_src: true
   notify: "Update and install feeds"

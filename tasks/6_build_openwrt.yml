@@ -1,16 +1,16 @@
 ---
-- name: build - Clean Openwrt target images
+- name: 6/7 build - 1 - Clean Openwrt target images
   shell: make target/linux/clean
   args:
-    chdir: "{{ openwrt_build_dir }}"
+    chdir: "{{ openwrt_buildroot_dir }}"
   when: not skip_build_openwrt_target_clean
   tags:
     - build_openwrt_target_clean
 
-- name: build - Build OpenWrt
-  shell: make -j $(nproc) EXTRA_IMAGE_NAME="{{openwrt_extra_image_name}}"
+- name: 6/7 build - 2 - Build OpenWrt
+  shell: make -j $(nproc) EXTRA_IMAGE_NAME="{{ openwrt_extra_image_name }}"
   args:
-    chdir: "{{ openwrt_build_dir }}"
+    chdir: "{{ openwrt_buildroot_dir }}"
   when: not skip_build_openwrt
   tags:
     - build_openwrt

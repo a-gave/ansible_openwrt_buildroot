@@ -1,21 +1,21 @@
 ---
-- name: configure - clean - stagin_dir/toolchain*
+- name: 5/7 configure - 1 - clean - 1 - stagin_dir/toolchain*
   shell:
     cmd:
       # make config-clean;
       rm -rf build_dir/toolchain*;
       rm -rf staging_dir/toolchain*;
   args:
-    chdir: "{{ openwrt_build_dir }}"
+    chdir: "{{ openwrt_buildroot_dir }}"
 
-- name: configure - clean - Clean info files
+- name: 5/7 configure - 1 - clean - 2  - Clean info files
   shell:
-    cmd: "rm -rf {{ openwrt_build_dir }}/tmp/info/.files-packageinfo.mk;
-          rm -rf {{ openwrt_build_dir }}/tmp/info/.files-targetinfo.mk;"
+    cmd: "rm -rf {{ openwrt_buildroot_dir }}/tmp/info/.files-packageinfo.mk;
+          rm -rf {{ openwrt_buildroot_dir }}/tmp/info/.files-targetinfo.mk;"
   args:
-    chdir: "{{ openwrt_build_dir }}"
+    chdir: "{{ openwrt_buildroot_dir }}"
 
-- name: configure - clean - Remove .config
+- name: 5/7 configure - 1 - clean - 3 - Remove .config
   file:
-    path: "{{ openwrt_build_dir }}/.config"
+    path: "{{ openwrt_buildroot_dir }}/.config"
     state: absent

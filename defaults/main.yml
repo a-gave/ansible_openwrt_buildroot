@@ -4,21 +4,22 @@
 # Environment
 openwrt_build_mode: 'stable'
 openwrt_build_user: "{{ ansible_user | default('user_id') }}"
-openwrt_dir: "{{ playbook_dir }}/openwrt_build/{{openwrt_build_mode}}/"
+openwrt_dir: "{{ playbook_dir }}/openwrt_build/{{ openwrt_build_mode }}/"
 
 # Openwrt
 version_dist: OpenWrt
-openwrt_version: "{{openwrt_release['stable']}}"
-openwrt_version_tag: "v{{openwrt_version}}"
-openwrt_build_dirname: "openwrt-{{openwrt_version}}"
-openwrt_build_dir: "{{openwrt_dir}}/{{openwrt_build_dirname}}"
+version_number: "{{ openwrt_version | default('') }}"
+openwrt_version: "{{ openwrt_release['stable'] }}"
+openwrt_version_tag: "v{{ openwrt_version }}"
+openwrt_buildroot_dirname: "openwrt_buildroot_{{ openwrt_version }}"
+openwrt_buildroot_dir: "{{ openwrt_dir }}/{{ openwrt_buildroot_dirname }}"
 
 # Build
 openwrt_extra_image_name: ""
 
 # Skip tasks.
 skip_prepare: false
-skip_install_openwrt_requirements: false
+skip_install_openwrt_buildroot_requirements: false
 skip_clone_openwrt: false
 skip_add_feeds: false
 skip_update_install_feeds: false
@@ -53,8 +54,8 @@ openwrt_default_config_file: default_config.j2
 openwrt_config_image: |
   CONFIG_IMAGEOPT=y
   CONFIG_VERSIONOPT=y
-  CONFIG_VERSION_DIST="{{version_dist}}"
-  CONFIG_VERSION_NUMBER="{{ openwrt_version }}"
+  CONFIG_VERSION_DIST="{{ version_dist }}"
+  CONFIG_VERSION_NUMBER="{{ version_number }}"
   CONFIG_JSON_OVERVIEW_IMAGE_INFO=y
   CONFIG_KERNEL_BUILD_DOMAIN="buildhost"
   CONFIG_KERNEL_BUILD_USER="builder"

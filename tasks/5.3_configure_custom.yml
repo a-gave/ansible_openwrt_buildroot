@@ -1,11 +1,12 @@
 ---
-- name: configure - Apply custom configs
+- name: 5/7 configure - 3 - custom - 1 - Apply custom configs
   blockinfile:
-    path: "{{ openwrt_build_dir }}/.config"
+    path: "{{ openwrt_buildroot_dir }}/.config"
     block: "{{ lookup('ansible.builtin.template', openwrt_default_config_file) }}"
 
-- name: configure - Expand to full config via make defconfig
-  shell: "cd {{ openwrt_build_dir }}; make defconfig"
+- name: 5/7 configure - 3 - custom - 2 - Expand to full config via make defconfig
+  shell: "cd {{ openwrt_buildroot_dir }}; make defconfig"
 
-- name: configure - Diffconfig to configs/{{ version_dist }}_custom_config_{{openwrt_target}}_{{ openwrt_subtarget}}
-  shell: "cd {{ openwrt_build_dir }}; ./scripts/diffconfig.sh > configs/{{ version_dist }}_custom_config_{{openwrt_target}}_{{ openwrt_subtarget}}"
+- name: 5/7 configure - 3 - custom - 3 - Diffconfig to configs/{{ version_dist }}_custom_config_{{openwrt_target}}_{{ openwrt_subtarget}}
+  shell: "cd {{ openwrt_buildroot_dir }}; 
+    ./scripts/diffconfig.sh > configs/{{ version_dist }}_custom_config_{{openwrt_target}}_{{ openwrt_subtarget}}"
